@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.player;
-import sk.stuba.fei.uim.oop.card.Card;
-
+import sk.stuba.fei.uim.oop.card.*;
 import java.util.ArrayList;
 
 public class Player {
@@ -8,6 +7,10 @@ public class Player {
     private int lives;
 
     private ArrayList<Card> cards;
+
+
+
+    private ArrayList<Card> blueCards = new ArrayList<Card>();     ///these are the cards that the player has laid out in front of him
 
 
     public Player(String name) {
@@ -28,13 +31,22 @@ public class Player {
     public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
     }
+    public ArrayList<Card> getPlayerBlueCards() {
+        return blueCards;
+    }
 
+    public void setBlueCards(ArrayList<Card> blueCards) {
+        this.blueCards = blueCards;
+    }
 
     public boolean isLiving() {
         return this.lives >0;
     }
     public void takeLife() {
         this.lives--;
+    }
+    public void addLife() {
+        this.lives++;
     }
 
     public ArrayList<Card> getPlayerCards() {
@@ -55,5 +67,13 @@ public class Player {
             }
         }
         return cards;
+    }
+    public  void drawCards(ArrayList<Card> deck){
+        for (int i = 0; i <2; i++) {
+            deck.get(deck.size() - 1).moveCard(deck, this.cards);
+        }
+    }
+    public int getNumberCards(){
+         return (this.cards.size() - 1);
     }
 }

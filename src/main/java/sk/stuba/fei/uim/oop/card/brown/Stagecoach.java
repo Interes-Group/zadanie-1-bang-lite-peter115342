@@ -1,21 +1,27 @@
 package sk.stuba.fei.uim.oop.card.brown;
 
 import sk.stuba.fei.uim.oop.card.Card;
+import sk.stuba.fei.uim.oop.playarea.PlayArea;
+import sk.stuba.fei.uim.oop.player.Player;
 
-public class Stagecoach extends Card {
-    private static final String CARD_NAME = "Stagcoach";
+public class Stagecoach extends BrownCard {
+    private static final String CARD_NAME = "Stagecoach";
 
-    public Stagecoach(String name) {
-        super(name);
+    public Stagecoach(PlayArea playArea) {
+        super(CARD_NAME, playArea);
     }
 
     @Override
     public boolean isPlayable() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isPlayable(int cardIndex) {
-        return false;
+        return true;
+    }
+    @Override
+    public void playCard(Player player){
+        super.playCard(player);
     }
 }

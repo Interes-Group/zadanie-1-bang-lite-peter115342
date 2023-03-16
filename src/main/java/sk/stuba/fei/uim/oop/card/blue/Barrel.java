@@ -1,30 +1,34 @@
 package sk.stuba.fei.uim.oop.card.blue;
 
-import sk.stuba.fei.uim.oop.card.Card;
+import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 
-public class Barrel extends Card {
+
+
+public class Barrel extends BlueCard{
     private static final String  CARD_NAME = "Barrel";
 
-
-
-    public Barrel(String name) {
-        super(name);
+    public Barrel(PlayArea playArea) {
+        super(CARD_NAME, playArea);
     }
+
 
     @Override
     public boolean isPlayable() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isPlayable(int cardIndex) {
-        return false;
+        return true;
     }
 
     @Override
     public void playCard(Player player){
         super.playCard(player);
 
+
     }
+
+
 }
