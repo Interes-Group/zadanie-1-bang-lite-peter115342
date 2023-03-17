@@ -17,6 +17,10 @@ public class Indians extends BrownCard {
     }
 
     @Override
+    public boolean canUseOnPlayer(){
+        return true;
+    }
+    @Override
     public boolean isPlayable(int cardIndex) {
         return false;
     }
