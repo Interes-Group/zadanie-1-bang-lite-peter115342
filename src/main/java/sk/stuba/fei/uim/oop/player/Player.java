@@ -70,7 +70,8 @@ public class Player {
     }
     public  void drawCards(ArrayList<Card> deck){
         for (int i = 0; i <2; i++) {
-            deck.get(deck.size() - 1).moveCard(deck, this.cards);
+            this.cards.add(deck.get(deck.size()-1));
+            deck.remove(deck.size()-1);
         }
     }
     public int getNumberCards(){
