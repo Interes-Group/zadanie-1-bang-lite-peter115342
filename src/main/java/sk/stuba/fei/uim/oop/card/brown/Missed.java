@@ -15,6 +15,10 @@ public class Missed extends BrownCard {
     public boolean isPlayable() {
         return false;
     }
+    @Override
+    public boolean canUseOnPlayer(){
+        return false;
+    }
 
     @Override
     public boolean isPlayable(int cardIndex) {
