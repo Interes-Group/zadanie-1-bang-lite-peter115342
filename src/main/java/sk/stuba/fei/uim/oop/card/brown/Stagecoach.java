@@ -16,6 +16,12 @@ public class Stagecoach extends BrownCard {
         return true;
     }
 
+
+    @Override
+    public boolean canUseOnPlayer(){
+        return false;
+    }
+
     @Override
     public boolean isPlayable(int cardIndex) {
         return true;
