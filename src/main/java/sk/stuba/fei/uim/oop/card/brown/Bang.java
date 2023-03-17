@@ -26,6 +26,7 @@ public class Bang extends BrownCard {
     }
 
 
+    
     @Override
     public void playCard(Player player) {
             super.playCard(player);
