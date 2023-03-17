@@ -34,7 +34,8 @@ public class Bang extends BrownCard {
             }
             else {
                 if (player.getPlayerCards().contains(new Missed(playArea))) {
-                    System.out.println("!!! " + player.getName() + " has used the Missed card");
+                    System.out.println("!!! " + player.getName() + " has used the Missed card !!!");
+                    player.getPlayerCards().remove(new Missed(playArea));
                 } else if (player.getPlayerBlueCards().contains(new Barrel(playArea))) {
 
                     if (rand.nextInt(4) == 3) {
@@ -47,9 +48,9 @@ public class Bang extends BrownCard {
                 }
             }
     }
-    public int useOnPlayer(){
-        return ZKlavesnice.readInt("''' Choose who do you want to use this card on! '''");
-
+    @Override
+    public boolean canUseOnPlayer(){
+        return true;
     }
     public void shoot(Player player) {
         player.takeLife();
