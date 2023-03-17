@@ -14,7 +14,10 @@ public class Dynamite extends BlueCard  {
     public boolean isPlayable() {
         return true;
     }
-
+    @Override
+    public boolean canUseOnPlayer(){
+        return false;
+    }
     @Override
     public boolean isPlayable(int cardIndex) {
         return true;
