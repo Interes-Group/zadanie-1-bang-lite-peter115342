@@ -58,9 +58,9 @@ public class BangFlow {
         this.genCards(new Bang(playArea),30,this.cardDeck);
         this.genCards(new Missed(playArea),15,this.cardDeck);
         this.genCards(new Beer(playArea),8,this.cardDeck);
-        this.genCards(new CatBalou(playArea),15,this.cardDeck);
-        this.genCards(new Stagecoach(playArea),15,this.cardDeck);
-        this.genCards(new Indians(playArea),15,this.cardDeck);
+        this.genCards(new CatBalou(playArea),6,this.cardDeck);
+        this.genCards(new Stagecoach(playArea),4,this.cardDeck);
+        this.genCards(new Indians(playArea),2,this.cardDeck);
 
 
         Collections.shuffle(cardDeck);
@@ -73,10 +73,22 @@ public class BangFlow {
         while (getNumberOfPlayersPlaying() >1){
 
             checkAlivePlayers(players);
+            System.out.println(" ''' The players  playing  are: '''");
+            for( int i = 0;i < getNumberOfPlayersPlaying();i++){
+                if(!players[i].isLiving()){
+                    continue;
+                }
+                System.out.println("Player "+(i+1)+". "+players[i].getName() );
+
+            }
             this.playerCounterReset();
                 while (playersCurrent < getNumberOfPlayersPlaying()){
-                System.out.println("''' It is "+ players[playersCurrent].getName() +"'s turn. '''");
-                playTurn(players[playersCurrent]);
+                    if (players[playersCurrent].isLiving()) {
+                        System.out.println("''' It is " + players[playersCurrent].getName() + "'s turn. '''");
+                        players[playersCurrent].drawCards(cardDeck);
+                        printPlayerCard(players[playersCurrent]);
+                        playTurn(players, playersCurrent, getNumberOfPlayersPlaying());
+                    }
                 this.playerCounterPlus();
             }
             checkAlivePlayers(players);
@@ -111,21 +123,41 @@ public class BangFlow {
     }
 
 
-    private void playTurn(Player player) {
-        player.drawCards(cardDeck);
-        printPlayerCard(player);
+    private void playTurn(Player[] players, int playersCurrent, int numOfPlayers) {
         Card card;
-        card = pickACard(player);
-        card.playCard(player);
-        card.moveCard(player.getPlayerCards(),usedDeck);
+        int playerIndex;
+        int lastCard;
+        card = pickACard(players[playersCurrent]);
+        if(card.canUseOnPlayer()){
+            while (true) {
+                playerIndex = (ZKlavesnice.readInt("Choose who to use this card on:")-1);
+                if (playerIndex == playersCurrent) {
+                    System.out.println("You cannot use this card on yourself!");
+                    continue;
+                }
+                else if (playerIndex > numOfPlayers) {
+                    System.out.println("Choose from the players that are currently playing!");
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            card.playCard(players[playerIndex]);
+        }
+        else {
+            card.playCard(players[playersCurrent]);
+        }
+        System.out.println("''' Player "+ players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
         usedDeck.add(card);
-        player.getPlayerCards().remove(card);
+        players[playersCurrent].getPlayerCards().remove(card);
         System.out.println("\n");
-        //while (player.getNumberCards() != player.getLives()){
-            // player.getPlayerCards().get(player.getPlayerCards().size()-1).moveCard(player.getPlayerCards(),usedDeck);
-          //  usedDeck.add(player.getPlayerCards().get(player.getPlayerCards().size()-1));
-            //player.getPlayerCards().remove(player.getPlayerCards().size()-1);
-        //}
+        while (players[playersCurrent].getNumberCards() == players[playersCurrent].getLives()){
+            lastCard = players[playersCurrent].getPlayerCards().size()-1;
+            card = players[playersCurrent].getPlayerCards().get(lastCard);
+             players[playersCurrent].getPlayerCards().remove(lastCard);
+            usedDeck.add(card);
+        }
     }
     private void printPlayerCard(Player player){
         System.out.println(player.getName()+" has "+ player.getLives()+" lives and these cards on hand: ");
@@ -147,6 +179,7 @@ public class BangFlow {
                 continue;
             }
 
+
             return player.getPlayerCards().get(whichCard);
 
         }
@@ -157,10 +190,11 @@ public class BangFlow {
         for( int i = 0;i < getNumberOfPlayersPlaying();i++){
             if (!players[i].isLiving()){
                 this.usedDeck.addAll(players[i].takeFromHand());
-                System.out.println("!!! Player "+ players[playersCurrent].getName() +"is  done for! !!! ");
+                System.out.println("!!! Player "+ players[i].getName() +"is  done for! !!! ");
             }
         }
     }
+
 
 
 
