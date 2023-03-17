@@ -14,7 +14,10 @@ public class Prison extends BlueCard {
     public boolean isPlayable() {
         return true;
     }
-
+    @Override
+    public boolean canUseOnPlayer(){
+        return true;
+    }
     @Override
     public boolean isPlayable(int cardIndex) {
         return true;
