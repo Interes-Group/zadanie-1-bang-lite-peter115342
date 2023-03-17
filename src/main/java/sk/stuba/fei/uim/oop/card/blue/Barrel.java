@@ -12,7 +12,10 @@ public class Barrel extends BlueCard{
         super(CARD_NAME, playArea);
     }
 
-
+    @Override
+    public boolean canUseOnPlayer(){
+        return false;
+    }
     @Override
     public boolean isPlayable() {
         return true;
