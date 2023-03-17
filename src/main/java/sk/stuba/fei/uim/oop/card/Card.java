@@ -30,14 +30,14 @@ public abstract class Card {
 
     public void playCard(Player player) {
         if (this.getCardColor().equals(CardColor.BROWN)) {
-            System.out.println("''' Player " + player.getName() + " has chosen to play: " + this.name + "! '''");
+
         }
         if (this.getCardColor().equals(CardColor.BLUE)) {
             System.out.println("''' Player " + player.getName() + " has chosen to lay out : " + this.name + "! '''");
             player.getPlayerBlueCards().add(this);
         }
     }
-
+    public abstract boolean canUseOnPlayer();
     public void moveCard(ArrayList<Card> source, ArrayList<Card> dest) {
         int tempIndex;
         if (source.contains(this)) {
@@ -47,10 +47,6 @@ public abstract class Card {
         }
     }
 
-    public int useOnPlayer(){
-        return ZKlavesnice.readInt("''' Choose who do you want to use this card on! '''");
-
-    }
 
     @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
