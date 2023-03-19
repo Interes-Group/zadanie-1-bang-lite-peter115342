@@ -1,10 +1,7 @@
 package sk.stuba.fei.uim.oop.card.brown;
 
-import sk.stuba.fei.uim.oop.card.Card;
 import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
-
-import java.util.ArrayList;
 
 public class Beer extends BrownCard {
     private static final String CARD_NAME = "Beer";
@@ -19,7 +16,7 @@ public class Beer extends BrownCard {
         return true;
     }
     @Override
-    public boolean canUseOnEnemy(){
+    public boolean canUseOnPlayer(){
         return false;
     }
     @Override
@@ -28,8 +25,8 @@ public class Beer extends BrownCard {
     }
 
     @Override
-    public void playCard(Player player, ArrayList<Card> deck) {
-        super.playCard(player,deck);
+    public void playCard(Player player) {
+        super.playCard(player);
         player.addLife();
         System.out.println("!!! "+player.getName()+" got an extra life! !!!");
     }

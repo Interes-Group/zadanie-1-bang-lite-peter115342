@@ -1,22 +1,18 @@
 package sk.stuba.fei.uim.oop.card;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.playarea.PlayArea;
+import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Card {
     protected String name;
     protected PlayArea playArea;
     protected CardColor cardColor;
-    protected Random rand = new Random();
+
     public Card(String name, PlayArea playArea) {
         this.playArea = playArea;
         this.name = name;
-    }
-
-    public Random getRand() {
-        return rand;
     }
 
     public String getName() {
@@ -32,13 +28,16 @@ public abstract class Card {
         return cardColor;
     }
 
-    public void playCard(Player player,ArrayList<Card> deck) {
+    public void playCard(Player player) {
+        if (this.getCardColor().equals(CardColor.BROWN)) {
+
+        }
         if (this.getCardColor().equals(CardColor.BLUE)) {
+            System.out.println("''' Player " + player.getName() + " has chosen to lay out : " + this.name + "! '''");
             player.getPlayerBlueCards().add(this);
         }
-        player.getPlayerCards().remove(this);
     }
-    public abstract boolean canUseOnEnemy();
+    public abstract boolean canUseOnPlayer();
     public void moveCard(ArrayList<Card> source, ArrayList<Card> dest) {
         int tempIndex;
         if (source.contains(this)) {
@@ -61,9 +60,5 @@ public abstract class Card {
             }
         }
         return result;
-    }
-
-    public boolean blueCardEffect(Player player){
-        return false;
     }
 }

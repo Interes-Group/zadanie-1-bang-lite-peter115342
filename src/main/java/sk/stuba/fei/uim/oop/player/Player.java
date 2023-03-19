@@ -42,9 +42,8 @@ public class Player {
     public boolean isLiving() {
         return this.lives >0;
     }
-    public boolean takeLife() {
+    public void takeLife() {
         this.lives--;
-        return this.lives < 1 ;
     }
     public void addLife() {
         this.lives++;
@@ -69,27 +68,13 @@ public class Player {
         }
         return cards;
     }
-
-    public void drawCards(ArrayList<Card> deck) {
-        drawCards(deck, 2);
-    }
-
-    public  void drawCards(ArrayList<Card> deck, int numberOfCards){
-        for (int i = 0; i <numberOfCards; i++) {
+    public  void drawCards(ArrayList<Card> deck){
+        for (int i = 0; i <2; i++) {
             this.cards.add(deck.get(deck.size()-1));
-            System.out.println(this.getName()+" drew a "+ deck.get(deck.size()-1).getName() + " card!" );
             deck.remove(deck.size()-1);
         }
     }
     public int getNumberCards(){
-        return (this.cards.size() - 1);
-    }
-
-    public void discardLastCard(ArrayList<Card> usedDeck) {
-        int lastCardInd = cards.size()-1;
-        Card card = cards.get(lastCardInd);
-        System.out.println("Player " + name + " discared " + card.getName());
-        cards.remove(lastCardInd);
-        usedDeck.add(card);
+         return (this.cards.size() - 1);
     }
 }
