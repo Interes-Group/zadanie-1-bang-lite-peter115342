@@ -2,10 +2,7 @@ package sk.stuba.fei.uim.oop.card.brown;
 
 import sk.stuba.fei.uim.oop.card.Card;
 import sk.stuba.fei.uim.oop.card.blue.Barrel;
-import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.bang.BangFlow;
-import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,8 +10,8 @@ import java.util.Random;
 public class Bang extends BrownCard {
     private static final String CARD_NAME = "Bang!";
 
-    public Bang(PlayArea playArea) {
-        super(CARD_NAME, playArea);
+    public Bang() {
+        super(CARD_NAME);
     }
 
     @Override
@@ -36,10 +33,10 @@ public class Bang extends BrownCard {
             shoot(player);
         }
         else {
-            if (player.getPlayerCards().contains(new Missed(playArea))) {
+            if (player.getPlayerCards().contains(new Missed())) {
                 System.out.println("!!! " + player.getName() + " has used the Missed card !!!");
-                player.getPlayerCards().remove(new Missed(playArea));
-            } else if (player.getPlayerBlueCards().contains(new Barrel(playArea))) {
+                player.getPlayerCards().remove(new Missed());
+            } else if (player.getPlayerBlueCards().contains(new Barrel())) {
 
                 if (this.rand.nextInt(4) == 3) {
                     System.out.println("!!! " + player.getName() + "hid behind a barrel! !!!");

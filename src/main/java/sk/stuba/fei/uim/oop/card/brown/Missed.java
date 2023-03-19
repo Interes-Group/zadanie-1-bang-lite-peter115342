@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.card.brown;
 
 import sk.stuba.fei.uim.oop.card.Card;
-import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 public class Missed extends BrownCard {
     private static final String CARD_NAME = "Missed!";
 
-    public Missed(PlayArea playArea) {
-        super(CARD_NAME, playArea);
+    public Missed() {
+        super(CARD_NAME);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.bang;
 import sk.stuba.fei.uim.oop.card.blue.*;
 import sk.stuba.fei.uim.oop.card.brown.*;
-import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.card.*;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
@@ -16,7 +15,7 @@ public class BangFlow {
     private ArrayList<Card> cardDeck;
     private  int max = Integer.MAX_VALUE;
     private ArrayList<Card> usedDeck = new ArrayList<Card>();
-    private PlayArea playArea;
+
 
     private  char yesOrNo  = '\n';
 
@@ -63,31 +62,31 @@ public class BangFlow {
         System.out.println(" ''' The GAME HAS STARTED... ''' \n");
 
         for (int i = 0;i <2;i++){
-            cardDeck.add(new Barrel(playArea) );
+            cardDeck.add(new Barrel() );
         }
         for (int i = 0;i <3;i++){
-            cardDeck.add(new Prison(playArea) );
+            cardDeck.add(new Prison() );
         }
-        cardDeck.add(new Dynamite(playArea));
+        cardDeck.add(new Dynamite());
 
         for (int i = 0;i <30;i++){
-            cardDeck.add(new Bang(playArea) );
+            cardDeck.add(new Bang() );
         }
 
         for (int i = 0;i <15;i++){
-            cardDeck.add(new Missed(playArea));
+            cardDeck.add(new Missed());
         }
         for (int i = 0;i <8;i++){
-            cardDeck.add(new Beer(playArea));
+            cardDeck.add(new Beer());
         }
         for (int i = 0;i <2;i++){
-            cardDeck.add(new CatBalou(playArea));
+            cardDeck.add(new CatBalou());
         }
         for (int i = 0;i <4;i++){
-            cardDeck.add(new Stagecoach(playArea) );
+            cardDeck.add(new Stagecoach() );
         }
         for (int i = 0;i <2;i++) {
-            cardDeck.add(new Indians(playArea));
+            cardDeck.add(new Indians());
         }
 
 
@@ -256,8 +255,8 @@ public class BangFlow {
         Card card;
         int cardInd;
 
-        if(players[playersCurrent].getPlayerBlueCards().contains(new Prison(playArea))){
-            cardInd =  players[playersCurrent].getPlayerBlueCards().indexOf(new Prison(playArea));
+        if(players[playersCurrent].getPlayerBlueCards().contains(new Prison())){
+            cardInd =  players[playersCurrent].getPlayerBlueCards().indexOf(new Prison());
             card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
             if( card.blueCardEffect(players[playersCurrent])){
                 System.out.println(players[playersCurrent].getName() +" is locked up in a Prison, his turn is skipped!");
@@ -275,8 +274,8 @@ public class BangFlow {
         Card card;
         int cardInd;
 
-        if(players[playersCurrent].getPlayerBlueCards().contains(new Dynamite(playArea))){
-            cardInd =  players[playersCurrent].getPlayerBlueCards().indexOf(new Dynamite(playArea));
+        if(players[playersCurrent].getPlayerBlueCards().contains(new Dynamite())){
+            cardInd =  players[playersCurrent].getPlayerBlueCards().indexOf(new Dynamite());
             card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
             if( card.blueCardEffect(players[playersCurrent])){
                 System.out.println("BOOM!\n"+players[playersCurrent].getName() +" got blown up!");

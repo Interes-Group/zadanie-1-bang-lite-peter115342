@@ -1,17 +1,14 @@
 package sk.stuba.fei.uim.oop.card;
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.playarea.PlayArea;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Card {
     protected String name;
-    protected PlayArea playArea;
     protected CardColor cardColor;
     protected Random rand = new Random();
-    public Card(String name, PlayArea playArea) {
-        this.playArea = playArea;
+    public Card(String name) {
         this.name = name;
     }
 

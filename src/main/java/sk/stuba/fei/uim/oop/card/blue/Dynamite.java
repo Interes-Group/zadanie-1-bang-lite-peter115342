@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.card.blue;
 
 import sk.stuba.fei.uim.oop.card.Card;
-import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 public class Dynamite extends BlueCard {
     private static final String CARD_NAME = "Dynamite";
 
-    public Dynamite(PlayArea playArea) {
-        super(CARD_NAME, playArea);
+    public Dynamite() {
+        super(CARD_NAME);
     }
 
     @Override
