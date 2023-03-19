@@ -1,8 +1,10 @@
 package sk.stuba.fei.uim.oop.card.blue;
 
+import sk.stuba.fei.uim.oop.card.Card;
 import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 
+import java.util.ArrayList;
 
 
 public class Barrel extends BlueCard{
@@ -12,7 +14,10 @@ public class Barrel extends BlueCard{
         super(CARD_NAME, playArea);
     }
 
-
+    @Override
+    public boolean canUseOnEnemy(){
+        return false;
+    }
     @Override
     public boolean isPlayable() {
         return true;
@@ -24,8 +29,8 @@ public class Barrel extends BlueCard{
     }
 
     @Override
-    public void playCard(Player player){
-        super.playCard(player);
+    public void playCard(Player player, ArrayList<Card> deck){
+        super.playCard(player,deck);
 
 
     }
