@@ -4,6 +4,8 @@ import sk.stuba.fei.uim.oop.card.Card;
 import sk.stuba.fei.uim.oop.playarea.PlayArea;
 import sk.stuba.fei.uim.oop.player.Player;
 
+import java.util.ArrayList;
+
 public class Missed extends BrownCard {
     private static final String CARD_NAME = "Missed!";
 
@@ -16,7 +18,7 @@ public class Missed extends BrownCard {
         return false;
     }
     @Override
-    public boolean canUseOnPlayer(){
+    public boolean canUseOnEnemy(){
         return false;
     }
 
@@ -25,7 +27,7 @@ public class Missed extends BrownCard {
         return false;
     }
     @Override
-    public void playCard(Player player){
-        super.playCard(player);
+    public void playCard(Player player, ArrayList<Card> deck){
+        super.playCard(player,deck);
     }
 }
