@@ -2,19 +2,16 @@ package sk.stuba.fei.uim.oop.card;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Card {
     protected String name;
     protected CardColor cardColor;
-    protected Random rand = new Random();
+
     public Card(String name) {
         this.name = name;
     }
 
-    public Random getRand() {
-        return rand;
-    }
+
 
     public String getName() {
         return name;
@@ -29,7 +26,7 @@ public abstract class Card {
         return cardColor;
     }
 
-    public void playCard(Player player,ArrayList<Card> deck) {
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
         if (this.getCardColor().equals(CardColor.BLUE)) {
             player.getPlayerBlueCards().add(this);
         }

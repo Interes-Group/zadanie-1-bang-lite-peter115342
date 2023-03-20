@@ -28,8 +28,8 @@ public class Barrel extends BlueCard{
     }
 
     @Override
-    public void playCard(Player player, ArrayList<Card> deck){
-        super.playCard(player,deck);
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck){
+        super.playCard(player, cardDeck, usedDeck);
 
 
     }

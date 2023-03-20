@@ -1,18 +1,21 @@
 package sk.stuba.fei.uim.oop.player;
 import sk.stuba.fei.uim.oop.card.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
     private final  String name;
     private int lives;
-
+    private Random rand = new Random();
     private ArrayList<Card> cards;
 
 
 
     private ArrayList<Card> blueCards = new ArrayList<Card>();     ///these are the cards that the player has laid out in front of him
 
-
+    public Random getRand() {
+        return rand;
+    }
     public Player(String name) {
         this.name = name;
         this.cards = new ArrayList<>();
@@ -84,12 +87,11 @@ public class Player {
     public int getNumberCards(){
         return (this.cards.size() - 1);
     }
-
-    public void discardLastCard(ArrayList<Card> usedDeck) {
-        int lastCardInd = cards.size()-1;
-        Card card = cards.get(lastCardInd);
-        System.out.println("Player " + name + " discared " + card.getName());
-        cards.remove(lastCardInd);
+    public void discardRandomCard(ArrayList<Card> usedDeck, ArrayList<Card> playerCards) {
+        int randCardInd = this.rand.nextInt(playerCards.size()-1);
+        Card card = cards.get(randCardInd);
+        System.out.println( card.getName() + " has been discarded from " + this.getName()+ "'s cards!" );
+        cards.remove(randCardInd);
         usedDeck.add(card);
     }
 }

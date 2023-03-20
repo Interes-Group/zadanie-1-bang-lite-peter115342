@@ -5,7 +5,6 @@ import sk.stuba.fei.uim.oop.card.blue.Barrel;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Bang extends BrownCard {
     private static final String CARD_NAME = "Bang!";
@@ -27,8 +26,8 @@ public class Bang extends BrownCard {
 
 
     @Override
-    public void playCard(Player player, ArrayList<Card> deck) {
-        super.playCard(player,deck);
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
+        super.playCard(player, cardDeck, usedDeck);
         if(player.getPlayerBlueCards() == null){
             shoot(player);
         }
@@ -38,7 +37,7 @@ public class Bang extends BrownCard {
                 player.getPlayerCards().remove(new Missed());
             } else if (player.getPlayerBlueCards().contains(new Barrel())) {
 
-                if (this.rand.nextInt(4) == 3) {
+                if (player.getRand().nextInt(4) == 3) {
                     System.out.println("!!! " + player.getName() + "hid behind a barrel! !!!");
                 } else {
                     shoot(player);

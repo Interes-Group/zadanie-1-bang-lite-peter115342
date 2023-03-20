@@ -25,13 +25,13 @@ public class Prison extends BlueCard {
         return true;
     }
     @Override
-    public void playCard(Player player, ArrayList<Card> deck){
-        super.playCard(player,deck);
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck){
+        super.playCard(player, cardDeck, usedDeck);
 
     }
 
     @Override
     public boolean blueCardEffect(Player player){
-        return  this.rand.nextInt(4) == 3;
+        return  player.getRand().nextInt(4) == 3;
     }
 }

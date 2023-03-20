@@ -28,14 +28,14 @@ public class Dynamite extends BlueCard {
     }
 
     @Override
-    public void playCard(Player player, ArrayList<Card> deck) {
-        super.playCard(player, deck);
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
+        super.playCard(player, cardDeck, usedDeck);
 
     }
 
     @Override
     public boolean blueCardEffect(Player player) {
-        if (this.rand.nextInt(8) == 7) {
+        if (player.getRand().nextInt(8) == 7) {
             for (int i = 0; i < 3;i++) {
                 player.takeLife();
 

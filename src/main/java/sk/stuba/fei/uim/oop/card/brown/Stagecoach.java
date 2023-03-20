@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.card.brown;
 
-import sk.stuba.fei.uim.oop.bang.BangFlow;
 import sk.stuba.fei.uim.oop.card.Card;
 
 import sk.stuba.fei.uim.oop.player.Player;
@@ -32,9 +31,9 @@ public class Stagecoach extends BrownCard {
         return true;
     }
     @Override
-    public void playCard(Player player, ArrayList<Card> deck){
-        super.playCard(player,deck);
-        player.drawCards(deck);
+    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck){
+        super.playCard(player, cardDeck, usedDeck);
+        player.drawCards(cardDeck);
     }
 
 
