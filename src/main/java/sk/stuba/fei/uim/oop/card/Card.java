@@ -26,11 +26,11 @@ public abstract class Card {
         return cardColor;
     }
 
-    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
         if (this.getCardColor().equals(CardColor.BLUE)) {
-            player.getPlayerBlueCards().add(this);
+            players[currentPlayer].getPlayerBlueCards().add(this);
         }
-        player.getPlayerCards().remove(this);
+        //players[currentPlayer].getPlayerCards().remove(this);
     }
     public abstract boolean canUseOnEnemy();
     public void moveCard(ArrayList<Card> source, ArrayList<Card> dest) {

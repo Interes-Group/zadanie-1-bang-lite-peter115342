@@ -26,7 +26,7 @@ public class Missed extends BrownCard {
         return false;
     }
     @Override
-    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck){
-        super.playCard(player, cardDeck, usedDeck);
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer){
+        super.playCard(players, cardDeck, usedDeck, currentPlayer);
     }
 }

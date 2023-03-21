@@ -11,9 +11,4 @@ public  abstract class BlueCard extends Card {
         super(name);
         super.cardColor = CardColor.BLUE;
     }
-
-
-
-
-
 }

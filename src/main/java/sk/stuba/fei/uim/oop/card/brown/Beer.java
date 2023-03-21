@@ -27,9 +27,9 @@ public class Beer extends BrownCard {
     }
 
     @Override
-    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
-        super.playCard(player, cardDeck, usedDeck);
-        player.addLife();
-        System.out.println("!!! "+player.getName()+" got an extra life! !!!");
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
+        super.playCard(players, cardDeck, usedDeck, currentPlayer);
+        players[currentPlayer].addLife();
+        System.out.println("!!! "+ players[currentPlayer].getName()+" got an extra life! !!!");
     }
 }

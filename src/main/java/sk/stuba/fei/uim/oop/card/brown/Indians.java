@@ -26,7 +26,15 @@ public class Indians extends BrownCard {
         return false;
     }
     @Override
-    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck){
-        super.playCard(player, cardDeck, usedDeck);
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer){
+        super.playCard(players, cardDeck, usedDeck, currentPlayer);
+        for (Player player : players) {
+            if (!player.getPlayerCards().contains(new Bang())) {
+                System.out.println(player.getName() + " got attacked by an Indian!");
+                player.takeLife();
+                players[currentPlayer].discardCard(usedDeck,players[currentPlayer].getPlayerCards(),players[currentPlayer].getPlayerCards().indexOf(new Bang()));
+
+            }
+        }
     }
 }

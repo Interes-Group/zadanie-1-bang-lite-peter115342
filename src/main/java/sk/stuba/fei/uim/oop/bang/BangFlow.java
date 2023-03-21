@@ -115,30 +115,17 @@ public class BangFlow {
                         continue;
                     }
 
-                    while (true){
+                    do {
 
-                        if (cardDeck.size()-1 <2){
-                            moveDeck(usedDeck,cardDeck);
+                        if (cardDeck.size() - 1 < 2) {
+                            moveDeck(usedDeck, cardDeck);
                         }
-                        System.out.println("Cards in deck: "+ (cardDeck.size()));
-                        System.out.println("Cards in used deck: "+ (usedDeck.size()));
+                        System.out.println("Cards in deck: " + (cardDeck.size()));
+                        System.out.println("Cards in used deck: " + (usedDeck.size()));
 
                         printPlayerCard(players[playersCurrent]);
-                        char yesOrNo = ZKlavesnice.readChar("Do you want to play a card? (y/n) \n If you choose not to, your turn will end");
-                        if (yesOrNo == 'y' ){
 
-                            if(!playTurn(players, playersCurrent, getNumberOfPlayersPlaying())){
-                                break;
-                            }
-
-                        }
-                        else if (yesOrNo == 'n'){
-                            break;
-                        }
-                        else {
-                            System.out.println("You need to enter (y/n)!");
-                        }
-                    }
+                    } while (playTurn(players, playersCurrent, getNumberOfPlayersPlaying()));
                     while (players[playersCurrent].getNumberCards() > players[playersCurrent].getLives()-1){
                         players[playersCurrent].discardRandomCard(usedDeck,players[playersCurrent].getPlayerCards());
                     }
@@ -147,7 +134,7 @@ public class BangFlow {
                 this.playerCounterPlus();
 
             }
-           // this.playerCounterReset();
+            // this.playerCounterReset();
             checkAlivePlayers(players);
             // break;
 
@@ -176,14 +163,6 @@ public class BangFlow {
         this.playersCurrent = 0;
     }
 
-
-    private void genCards(Card card, int amount, ArrayList<Card> deck){
-        for(int i = 0; i < amount;i++){
-            deck.add(card);
-        }
-    }
-
-
     private boolean playTurn(Player[] players, int playersCurrent, int numOfPlayers) {
         Card card;
         int playerIndex;
@@ -199,7 +178,7 @@ public class BangFlow {
                     System.out.println("You cannot use this card on yourself!");
                     continue;
                 }
-                else if (playerIndex > numOfPlayers|| playerIndex < 1) {
+                else if (playerIndex > numOfPlayers|| playerIndex < 0) {
                     System.out.println("Choose from the players that are currently playing!");
                     continue;
                 }
@@ -208,16 +187,20 @@ public class BangFlow {
                 }
             }
             System.out.println("''' Player "+ players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
-            card.playCard(players[playerIndex],cardDeck,usedDeck );
-            players[playersCurrent].getPlayerCards().remove(card);
+            card.playCard(players,cardDeck,usedDeck,playerIndex );
 
+            players[playersCurrent].getPlayerCards().remove(card);
         }
         else {
             System.out.println("''' Player "+ players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
-            card.playCard(players[playersCurrent],cardDeck,usedDeck );
+            card.playCard(players,cardDeck,usedDeck,playersCurrent );
+
             players[playersCurrent].getPlayerCards().remove(card);
+
         }
-        usedDeck.add(card);
+        if (card.getCardColor() != CardColor.BLUE) {
+            usedDeck.add(card);
+        }
         System.out.println("\n");
         return true;
 
@@ -254,9 +237,6 @@ public class BangFlow {
                     continue;
                 }
             }
-
-
-
             return whichCard;
 
         }

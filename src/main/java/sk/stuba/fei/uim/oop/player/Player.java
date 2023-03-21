@@ -94,4 +94,10 @@ public class Player {
         cards.remove(randCardInd);
         usedDeck.add(card);
     }
+    public void discardCard(ArrayList<Card> usedDeck, ArrayList<Card> playerCard,int cardInd){
+        Card card = cards.get(cardInd);
+        System.out.println( card.getName() + " has been discarded from " + this.getName()+ "'s cards!" );
+        cards.remove(cardInd);
+        usedDeck.add(card);
+    }
 }

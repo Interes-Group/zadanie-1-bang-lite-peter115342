@@ -26,24 +26,25 @@ public class Bang extends BrownCard {
 
 
     @Override
-    public void playCard(Player player, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck) {
-        super.playCard(player, cardDeck, usedDeck);
-        if(player.getPlayerBlueCards() == null){
-            shoot(player);
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
+        super.playCard(players, cardDeck, usedDeck, currentPlayer);
+        if(players[currentPlayer].getPlayerBlueCards() == null){
+            shoot(players[currentPlayer]);
         }
         else {
-            if (player.getPlayerCards().contains(new Missed())) {
-                System.out.println("!!! " + player.getName() + " has used the Missed card !!!");
-                player.getPlayerCards().remove(new Missed());
-            } else if (player.getPlayerBlueCards().contains(new Barrel())) {
+            if (players[currentPlayer].getPlayerCards().contains(new Missed())) {
+                System.out.println("!!! " + players[currentPlayer].getName() + " has used the Missed card !!!");
+                players[currentPlayer].discardCard(usedDeck,players[currentPlayer].getPlayerCards(),players[currentPlayer].getPlayerCards().indexOf(new Missed()));
+                //players[currentPlayer].getPlayerCards().remove(new Missed());
+            } else if (players[currentPlayer].getPlayerBlueCards().contains(new Barrel())) {
 
-                if (player.getRand().nextInt(4) == 3) {
-                    System.out.println("!!! " + player.getName() + "hid behind a barrel! !!!");
+                if (players[currentPlayer].getRand().nextInt(4) == 3) {
+                    System.out.println("!!! " + players[currentPlayer].getName() + "hid behind a barrel! !!!");
                 } else {
-                    shoot(player);
+                    shoot(players[currentPlayer]);
                 }
             } else {
-                shoot(player);
+                shoot(players[currentPlayer]);
             }
         }
     }
