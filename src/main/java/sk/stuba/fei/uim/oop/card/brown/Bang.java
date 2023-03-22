@@ -38,8 +38,8 @@ public class Bang extends BrownCard {
                 //players[currentPlayer].getPlayerCards().remove(new Missed());
             } else if (players[currentPlayer].getPlayerBlueCards().contains(new Barrel())) {
 
-                if (players[currentPlayer].getRand().nextInt(4) == 3) {
-                    System.out.println("!!! " + players[currentPlayer].getName() + "hid behind a barrel! !!!");
+                if (players[currentPlayer].getPlayerBlueCards().get(players[currentPlayer].getPlayerBlueCards().indexOf(new Barrel())).blueCardEffect(players[currentPlayer])) {
+                    System.out.println("!!! " + players[currentPlayer].getName() + " hid behind a barrel! !!!");
                 } else {
                     shoot(players[currentPlayer]);
                 }

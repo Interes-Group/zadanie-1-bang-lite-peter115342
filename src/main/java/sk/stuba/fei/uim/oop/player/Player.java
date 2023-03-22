@@ -2,7 +2,7 @@ package sk.stuba.fei.uim.oop.player;
 import sk.stuba.fei.uim.oop.card.*;
 import java.util.ArrayList;
 import java.util.Random;
-
+import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 public class Player {
     private final  String name;
     private int lives;
@@ -100,4 +100,41 @@ public class Player {
         cards.remove(cardInd);
         usedDeck.add(card);
     }
+    public void printPlayerCards(){
+        System.out.println(this.getName()+" has "+ this.getLives()+" lives and these cards on hand: ");
+        for (int i = 0; i < this.getPlayerCards().size(); i++) {
+            if (this.getPlayerCards().get(i).isPlayable()) {
+                System.out.println((i + 1) + ". " + this.getPlayerCards().get(i).getName());
+            }
+            else {
+                System.out.println((i + 1) + ". " + this.getPlayerCards().get(i).getName() + "(Not playable)");
+            }
+        }
+        if(!this.getPlayerBlueCards().isEmpty()) {
+            System.out.println(this.getName() + " has  these blue cards on the table: ");
+
+            for (int i = 0; i < this.getPlayerBlueCards().size(); i++) {
+                System.out.println((i + 1) + ". " + this.getPlayerBlueCards().get(i).getName());
+            }
+        }
+    }
+    public int pickACard(){
+        while (true) {
+            int whichCard = ((ZKlavesnice.readInt("''' Choose which card you want to play! Enter 0 if you want your turn to end. '''")) - 1);
+            if (whichCard > this.getNumberCards() || whichCard < -1){
+                System.out.println("Choose from the cards that "+ this.getName()+" has on hand!");
+                continue;
+            }
+            if (whichCard > -1) {
+                if (!this.getPlayerCards().get(whichCard).isPlayable()) {
+                    System.out.println(this.getPlayerCards().get(whichCard).getName() + " Is not playable, please choose a different card");
+                    continue;
+                }
+            }
+            return whichCard;
+
+        }
+
+    }
+
 }

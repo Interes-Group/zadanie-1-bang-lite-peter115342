@@ -33,6 +33,9 @@ public class Barrel extends BlueCard{
 
 
     }
-
+    @Override
+    public boolean blueCardEffect(Player player){
+        return  player.getRand().nextInt(4) == 3;
+    }
 
 }

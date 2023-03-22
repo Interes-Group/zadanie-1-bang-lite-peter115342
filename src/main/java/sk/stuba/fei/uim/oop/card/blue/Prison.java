@@ -34,4 +34,5 @@ public class Prison extends BlueCard {
     public boolean blueCardEffect(Player player){
         return  player.getRand().nextInt(4) == 3;
     }
+
 }

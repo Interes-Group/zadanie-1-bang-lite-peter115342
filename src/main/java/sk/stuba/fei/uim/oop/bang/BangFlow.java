@@ -123,7 +123,7 @@ public class BangFlow {
                         System.out.println("Cards in deck: " + (cardDeck.size()));
                         System.out.println("Cards in used deck: " + (usedDeck.size()));
 
-                        printPlayerCard(players[playersCurrent]);
+                        players[playersCurrent].printPlayerCards();
 
                     } while (playTurn(players, playersCurrent, getNumberOfPlayersPlaying()));
                     while (players[playersCurrent].getNumberCards() > players[playersCurrent].getLives()-1){
@@ -166,12 +166,12 @@ public class BangFlow {
     private boolean playTurn(Player[] players, int playersCurrent, int numOfPlayers) {
         Card card;
         int playerIndex;
-        int cardInd = pickACard(players[playersCurrent]);
+        int cardInd = players[playersCurrent].pickACard();
         if (cardInd == -1){
             return false;
         }
         card = players[playersCurrent].getPlayerCards().get(cardInd);
-        if(card.canUseOnEnemy()){
+        if(card.canUseOnEnemy() && !(card instanceof  Indians)){
             while (true) {
                 playerIndex = (ZKlavesnice.readInt("Choose who to use this card on:")-1);
                 if (playerIndex == playersCurrent) {
@@ -182,7 +182,11 @@ public class BangFlow {
                     System.out.println("Choose from the players that are currently playing!");
                     continue;
                 }
-                else {
+                else if (!players[playerIndex].isLiving()){
+                    System.out.println("This player is dead!");
+                } else if (players[playerIndex].getPlayerBlueCards().contains(card)) {
+                    System.out.println("You can only lay out one card of the same type!");
+                } else {
                     break;
                 }
             }
@@ -192,6 +196,10 @@ public class BangFlow {
             players[playersCurrent].getPlayerCards().remove(card);
         }
         else {
+            if (players[playersCurrent].getPlayerBlueCards().contains(card)) {
+                System.out.println("You can only lay out one card of the same type!");
+                return true;
+            }
             System.out.println("''' Player "+ players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
             card.playCard(players,cardDeck,usedDeck,playersCurrent );
 
@@ -205,43 +213,8 @@ public class BangFlow {
         return true;
 
     }
-    private void printPlayerCard(Player player){
-        System.out.println(player.getName()+" has "+ player.getLives()+" lives and these cards on hand: ");
-        for (int i = 0; i < player.getPlayerCards().size(); i++) {
-            if (player.getPlayerCards().get(i).isPlayable()) {
-                System.out.println((i + 1) + ". " + player.getPlayerCards().get(i).getName());
-            }
-            else {
-                System.out.println((i + 1) + ". " + player.getPlayerCards().get(i).getName() + "(Not playable)");
-            }
-        }
-        if(!player.getPlayerBlueCards().isEmpty()) {
-            System.out.println(player.getName() + " has  these blue cards on the table: ");
 
-            for (int i = 0; i < player.getPlayerBlueCards().size(); i++) {
-                System.out.println((i + 1) + ". " + player.getPlayerBlueCards().get(i).getName());
-            }
-        }
-    }
 
-    private int pickACard(Player player){
-        while (true) {
-            int whichCard = ((ZKlavesnice.readInt("''' Choose which card you want to play! Enter 0 if you want your turn to end. '''")) - 1);
-            if (whichCard > player.getNumberCards() || whichCard < -1){
-                System.out.println("Choose from the cards that "+ player.getName()+" has on hand!");
-                continue;
-            }
-            if (whichCard > -1) {
-                if (!player.getPlayerCards().get(whichCard).isPlayable()) {
-                    System.out.println(player.getPlayerCards().get(whichCard).getName() + " Is not playable, please choose a different card");
-                    continue;
-                }
-            }
-            return whichCard;
-
-        }
-
-    }
 
     private  void checkAlivePlayers(Player[] players){
         for( int i = 0;i < getNumberOfPlayersPlaying();i++){
@@ -299,15 +272,4 @@ public class BangFlow {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
 }
