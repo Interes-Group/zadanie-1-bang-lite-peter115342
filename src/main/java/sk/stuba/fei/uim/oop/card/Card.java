@@ -1,4 +1,5 @@
 package sk.stuba.fei.uim.oop.card;
+
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ public abstract class Card {
     public Card(String name) {
         this.name = name;
     }
-
 
 
     public String getName() {
@@ -32,7 +32,9 @@ public abstract class Card {
         }
         //players[currentPlayer].getPlayerCards().remove(this);
     }
+
     public abstract boolean canUseOnEnemy();
+
     public void moveCard(ArrayList<Card> source, ArrayList<Card> dest) {
         int tempIndex;
         if (source.contains(this)) {
@@ -43,9 +45,7 @@ public abstract class Card {
     }
 
 
-
-
-    public boolean blueCardEffect(Player player){
+    public boolean blueCardEffect(Player player) {
         return false;
     }
 

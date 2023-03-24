@@ -16,8 +16,9 @@ public class Missed extends BrownCard {
     public boolean isPlayable() {
         return false;
     }
+
     @Override
-    public boolean canUseOnEnemy(){
+    public boolean canUseOnEnemy() {
         return false;
     }
 
@@ -25,19 +26,22 @@ public class Missed extends BrownCard {
     public boolean isPlayable(int cardIndex) {
         return false;
     }
+
     @Override
-    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer){
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
     }
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+
+    @Override
+    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
+        boolean result = false;
+        if (object == null) {
             return result;
 
-        }else if (object instanceof Missed  ){
+        } else if (object instanceof Missed) {
             result = true;
         }
-        return  result;
+        return result;
     }
 }

@@ -24,17 +24,15 @@ public class Bang extends BrownCard {
     }
 
 
-
     @Override
     public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
-        if(players[currentPlayer].getPlayerBlueCards() == null){
+        if (players[currentPlayer].getPlayerBlueCards() == null) {
             shoot(players[currentPlayer]);
-        }
-        else {
+        } else {
             if (players[currentPlayer].getPlayerCards().contains(new Missed())) {
                 System.out.println("!!! " + players[currentPlayer].getName() + " has used the Missed card !!!");
-                players[currentPlayer].discardCard(usedDeck,players[currentPlayer].getPlayerCards(),players[currentPlayer].getPlayerCards().indexOf(new Missed()));
+                players[currentPlayer].discardCard(usedDeck, players[currentPlayer].getPlayerCards(), players[currentPlayer].getPlayerCards().indexOf(new Missed()));
                 //players[currentPlayer].getPlayerCards().remove(new Missed());
             } else if (players[currentPlayer].getPlayerBlueCards().contains(new Barrel())) {
 
@@ -48,25 +46,28 @@ public class Bang extends BrownCard {
             }
         }
     }
+
     @Override
-    public boolean canUseOnEnemy(){
+    public boolean canUseOnEnemy() {
         return true;
     }
+
     public void shoot(Player player) {
         player.takeLife();
         System.out.println("!!! " + player.getName() + " got shot! !!!");
     }
 
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+    @Override
+    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
+        boolean result = false;
+        if (object == null) {
             return result;
 
-        }else if (object instanceof Bang  ){
+        } else if (object instanceof Bang) {
             result = true;
         }
-        return  result;
+        return result;
     }
 }
 

@@ -44,7 +44,7 @@ public class CatBalou extends BrownCard {
                 players[currentPlayer].discardRandomCard(usedDeck, players[currentPlayer].getPlayerBlueCards());
                 break;
             }
-            if (whichList <1 || whichList >2) {
+            if (whichList < 1 || whichList > 2) {
                 System.out.println("Please choose out of the two options!");
                 continue;
             }
@@ -53,19 +53,21 @@ public class CatBalou extends BrownCard {
                 continue;
             }
             if (players[currentPlayer].getPlayerBlueCards().isEmpty()) {
-                System.out.println(players[currentPlayer].getName()+ " has no  blue cards!");
+                System.out.println(players[currentPlayer].getName() + " has no  blue cards!");
             }
         }
     }
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+
+    @Override
+    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
+        boolean result = false;
+        if (object == null) {
             return result;
 
-        }else if (object instanceof CatBalou  ){
+        } else if (object instanceof CatBalou) {
             result = true;
         }
-        return  result;
+        return result;
     }
 }

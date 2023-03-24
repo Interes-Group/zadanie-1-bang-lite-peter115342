@@ -18,18 +18,20 @@ public class Indians extends BrownCard {
     }
 
     @Override
-    public boolean canUseOnEnemy(){
+    public boolean canUseOnEnemy() {
         return true;
     }
+
     @Override
     public boolean isPlayable(int cardIndex) {
         return false;
     }
+
     @Override
-    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer){
+    public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
 
-        for (int i = 0; i < players.length;i++) {
+        for (int i = 0; i < players.length; i++) {
             if (!(i == currentPlayer)) {
                 if (!players[i].getPlayerCards().contains(new Bang())) {
                     System.out.println(players[i].getName() + " got attacked by an Indian!");
@@ -41,15 +43,17 @@ public class Indians extends BrownCard {
             }
         }
     }
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+
+    @Override
+    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
+        boolean result = false;
+        if (object == null) {
             return result;
 
-        }else if (object instanceof Indians  ){
+        } else if (object instanceof Indians) {
             result = true;
         }
-        return  result;
+        return result;
     }
 }

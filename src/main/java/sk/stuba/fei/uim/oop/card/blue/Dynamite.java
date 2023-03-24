@@ -36,23 +36,25 @@ public class Dynamite extends BlueCard {
 
     @Override
     public boolean blueCardEffect(Player player) {
-        if (player.getRand().nextInt(1) == 0) {
-            for (int i = 0; i < 3;i++) {
+        if (player.getRand().nextInt(8) == 7) {
+            for (int i = 0; i < 3; i++) {
                 player.takeLife();
             }
             return true;
         }
         return false;
     }
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+
+    @Override
+    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
+        boolean result = false;
+        if (object == null) {
             return result;
 
-        }else if (object instanceof Dynamite){
+        } else if (object instanceof Dynamite) {
             result = true;
         }
-        return  result;
+        return result;
     }
 }

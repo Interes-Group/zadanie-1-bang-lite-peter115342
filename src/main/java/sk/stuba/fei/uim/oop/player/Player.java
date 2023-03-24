@@ -1,8 +1,12 @@
 package sk.stuba.fei.uim.oop.player;
+
 import sk.stuba.fei.uim.oop.card.*;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
+
 public class Player {
     private final String name;
     private int lives;
@@ -86,8 +90,13 @@ public class Player {
                 this.cards.add(deck.get(deck.size() - 1));
                 System.out.println(this.getName() + " drew a " + deck.get(deck.size() - 1).getName() + " card!");
                 deck.remove(deck.size() - 1);
+                if (deck.size() - 1 < numberOfCards) {
+                    System.out.println("There are no more cards to draw!");
+                    return;
+                }
             }
         }
+
     }
 
     public int getNumberCards() {
@@ -130,8 +139,7 @@ public class Player {
                     System.out.println((i + 1) + ". " + this.getPlayerBlueCards().get(i).getName());
                 }
             }
-        }
-        else {
+        } else {
             System.out.println(this.getName() + " has " + this.getLives() + " lives and no cards on hand,his turn ends!  ");
 
         }
@@ -155,7 +163,7 @@ public class Player {
 
             }
         }
-        return  -1;
+        return -1;
     }
 
 
