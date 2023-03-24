@@ -43,21 +43,7 @@ public abstract class Card {
     }
 
 
-    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
-    public boolean equals(Object object) {
-        boolean result =   false;
-        if(object==null ){
-            return result;
 
-        }else if (!(object instanceof Card)  ){
-            return result;
-        }
-        else {
-        Card card = (Card) object;
-        return this.name.equals(card.name);
-        }
-
-    }
 
     public boolean blueCardEffect(Player player){
         return false;

@@ -35,7 +35,17 @@ public class Stagecoach extends BrownCard {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
         players[currentPlayer].drawCards(cardDeck);
     }
+    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+    public boolean equals(Object object) {
+        boolean result =   false;
+        if(object==null ){
+            return result;
 
+        }else if (object instanceof Stagecoach  ){
+            result = true;
+        }
+        return  result;
+    }
 
 
 

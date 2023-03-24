@@ -29,4 +29,15 @@ public class Missed extends BrownCard {
     public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer){
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
     }
+    @Override                                   // override to the equals() function, so I can search for objects as a whole instead of a reference
+    public boolean equals(Object object) {
+        boolean result =   false;
+        if(object==null ){
+            return result;
+
+        }else if (object instanceof Missed  ){
+            result = true;
+        }
+        return  result;
+    }
 }

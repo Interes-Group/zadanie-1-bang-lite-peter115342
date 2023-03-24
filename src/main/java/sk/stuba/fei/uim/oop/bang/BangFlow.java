@@ -15,7 +15,8 @@ public class BangFlow {
     private ArrayList<Card> cardDeck;
     private  int max = Integer.MAX_VALUE;
     private ArrayList<Card> usedDeck = new ArrayList<Card>();
-
+    private int numberOfPlayers = 0;
+    private  boolean winFlag = false;
 
     public ArrayList<Card> getCardDeck() {
         return cardDeck;
@@ -39,7 +40,7 @@ public class BangFlow {
                 "▐░░░░░░░░░░▌ ▐░▌       ▐░▌▐░▌      ▐░░▌▐░░░░░░░░░░░▌▐░▌\n" +
                 " ▀▀▀▀▀▀▀▀▀▀   ▀         ▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀ \n");
         System.out.println("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n");
-        int numberOfPlayers = 0;
+
         while (numberOfPlayers < 2 || numberOfPlayers > 4){
             numberOfPlayers = ZKlavesnice.readInt("||| Enter number of players (2-4): |||");
             if (numberOfPlayers < 2 || numberOfPlayers > 4){
@@ -106,13 +107,22 @@ public class BangFlow {
 
             }
             this.playerCounterReset();
-            while (playersCurrent < getNumberOfPlayersPlaying()){
+            while (playersCurrent < getNumberOfPlayersPlaying()-1){
+                if (winFlag){
+                    break;
+                }
+                this.playerCounterPlus();
+
                 if (players[playersCurrent].isLiving()) {
                     System.out.println("''' It is " + players[playersCurrent].getName() + "'s turn. '''");
                     players[playersCurrent].drawCards(cardDeck);
                     checkDynamiteEffect(players,playersCurrent);
                     if(checkPrisonEffect(players,playersCurrent)){
                         continue;
+                    }
+                    if (!checkAlivePlayers(players)) {
+                        winFlag = true;
+                        break;
                     }
 
                     do {
@@ -124,6 +134,10 @@ public class BangFlow {
                         System.out.println("Cards in used deck: " + (usedDeck.size()));
 
                         players[playersCurrent].printPlayerCards();
+                            if (!checkAlivePlayers(players)) {
+                                winFlag = true;
+                                break;
+                            }
 
                     } while (playTurn(players, playersCurrent, getNumberOfPlayersPlaying()));
                     while (players[playersCurrent].getNumberCards() > players[playersCurrent].getLives()-1){
@@ -131,19 +145,19 @@ public class BangFlow {
                     }
                 }
 
-                this.playerCounterPlus();
+
 
             }
             // this.playerCounterReset();
-            checkAlivePlayers(players);
             // break;
-
-        }
-        for (int i = 0; i < getNumberOfPlayersPlaying(); i++){
-            if (players[i].isLiving()){
-                System.out.println(players[i].getName()+" won the game, congrats! ");
+            if (!winFlag) {
+                if (!checkAlivePlayers(players)) {
+                    winFlag = true;
+                    break;
+                }
             }
         }
+
     }
 
     private int getNumberOfPlayersPlaying(){
@@ -160,7 +174,7 @@ public class BangFlow {
         this.playersCurrent++;
     }
     private void playerCounterReset(){
-        this.playersCurrent = 0;
+        this.playersCurrent = -1;
     }
 
     private boolean playTurn(Player[] players, int playersCurrent, int numOfPlayers) {
@@ -178,7 +192,7 @@ public class BangFlow {
                     System.out.println("You cannot use this card on yourself!");
                     continue;
                 }
-                else if (playerIndex > numOfPlayers|| playerIndex < 0) {
+                else if (playerIndex > numOfPlayers-1|| playerIndex < 0) {
                     System.out.println("Choose from the players that are currently playing!");
                     continue;
                 }
@@ -216,13 +230,23 @@ public class BangFlow {
 
 
 
-    private  void checkAlivePlayers(Player[] players){
+    private  boolean checkAlivePlayers(Player[] players){
+        int count = 0;
         for( int i = 0;i < getNumberOfPlayersPlaying();i++){
             if (!players[i].isLiving()){
+                count++;
                 this.usedDeck.addAll(players[i].takeFromHand());
-                System.out.println("!!! Player "+ players[i].getName() +"is  done for! !!! ");
+                System.out.println("!!!   "+ players[i].getName() +" is  dead! !!! ");
+            }
+            if (count  == getNumberOfPlayersPlaying() - 1){
+                for(int j = 0; j  <getNumberOfPlayersPlaying();j++)
+                    if (players[j].isLiving()) {
+                        System.out.println(players[j].getName() + " won the game, congrats! ");
+                        return false;
+                    }
             }
         }
+        return true;
     }
 
     private void moveDeck(ArrayList<Card> deckSrc,ArrayList<Card> deckDest ){
@@ -240,8 +264,13 @@ public class BangFlow {
             card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
             if( card.blueCardEffect(players[playersCurrent])){
                 System.out.println(players[playersCurrent].getName() +" is locked up in a Prison, his turn is skipped!");
+                players[playersCurrent].discardCard(usedDeck,players[playersCurrent].getPlayerBlueCards(),cardInd);
+
                 return true;
             }
+            System.out.println(players[playersCurrent].getName() +" escaped from the Prison!");
+            players[playersCurrent].discardCard(usedDeck,players[playersCurrent].getPlayerBlueCards(),cardInd);
+
         }
         return false;
     }
@@ -254,6 +283,7 @@ public class BangFlow {
             card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
             if( card.blueCardEffect(players[playersCurrent])){
                 System.out.println("BOOM!\n"+players[playersCurrent].getName() +" got blown up!");
+                players[playersCurrent].discardCard(usedDeck,players[playersCurrent].getPlayerBlueCards(),cardInd);
             }
             else{
                 if (playersCurrent-1  >= 0){
@@ -262,7 +292,7 @@ public class BangFlow {
 
                 }
                 else{
-                    players[getNumberOfPlayersPlaying()].getPlayerBlueCards().add(card);
+                    players[getNumberOfPlayersPlaying()-1].getPlayerBlueCards().add(card);
                     players[playersCurrent].getPlayerBlueCards().remove(card);
                 }
 
