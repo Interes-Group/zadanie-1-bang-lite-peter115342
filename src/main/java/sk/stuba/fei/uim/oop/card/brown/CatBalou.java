@@ -32,7 +32,8 @@ public class CatBalou extends BrownCard {
     public void playCard(Player[] players, ArrayList<Card> cardDeck, ArrayList<Card> usedDeck, int currentPlayer) {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
         if (players[currentPlayer].getPlayerCards().isEmpty() && players[currentPlayer].getPlayerBlueCards().isEmpty()) {
-            System.out.println("You cannot use " + this.getName() + " on " + players[currentPlayer].getName() + " as he has no cards!");
+            System.out.println("You cannot use " + this.getName() + " on " + players[currentPlayer].getName() + " as he has no cards at all!");
+            return;
         }
         while (true) {
             int whichList = ZKlavesnice.readInt("Enter 1 to discard a card from players hand or \n enter 2 to discard one of his blue cards");
@@ -49,7 +50,7 @@ public class CatBalou extends BrownCard {
                 continue;
             }
             if (players[currentPlayer].getPlayerCards().isEmpty()) {
-                System.out.println(players[currentPlayer].getName() + " has no blue cards!");
+                System.out.println(players[currentPlayer].getName() + " has no cards on hand!");
                 continue;
             }
             if (players[currentPlayer].getPlayerBlueCards().isEmpty()) {
@@ -63,7 +64,7 @@ public class CatBalou extends BrownCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof CatBalou) {
             result = true;

@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.card.blue;
 
 import sk.stuba.fei.uim.oop.card.Card;
-import sk.stuba.fei.uim.oop.card.brown.Stagecoach;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class Barrel extends BlueCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof Barrel) {
             result = true;

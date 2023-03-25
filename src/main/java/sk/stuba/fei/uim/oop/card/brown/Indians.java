@@ -32,7 +32,7 @@ public class Indians extends BrownCard {
         super.playCard(players, cardDeck, usedDeck, currentPlayer);
 
         for (int i = 0; i < players.length; i++) {
-            if (!(i == currentPlayer)) {
+            if (!(i == currentPlayer) && players[currentPlayer].isLiving()) {
                 if (!players[i].getPlayerCards().contains(new Bang())) {
                     System.out.println(players[i].getName() + " got attacked by an Indian!");
                     players[i].takeLife();
@@ -49,7 +49,7 @@ public class Indians extends BrownCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof Indians) {
             result = true;

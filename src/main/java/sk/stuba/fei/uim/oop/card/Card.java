@@ -30,21 +30,9 @@ public abstract class Card {
         if (this.getCardColor().equals(CardColor.BLUE)) {
             players[currentPlayer].getPlayerBlueCards().add(this);
         }
-        //players[currentPlayer].getPlayerCards().remove(this);
     }
 
     public abstract boolean canUseOnEnemy();
-
-    public void moveCard(ArrayList<Card> source, ArrayList<Card> dest) {
-        int tempIndex;
-        if (source.contains(this)) {
-            tempIndex = source.size() - 1;
-            dest.add(this);
-            source.remove(tempIndex);
-        }
-    }
-
-
     public boolean blueCardEffect(Player player) {
         return false;
     }

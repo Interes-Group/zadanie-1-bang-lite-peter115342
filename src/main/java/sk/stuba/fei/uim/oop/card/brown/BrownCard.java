@@ -1,6 +1,4 @@
 package sk.stuba.fei.uim.oop.card.brown;
-
-import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.card.*;
 
 public abstract class BrownCard extends Card {

@@ -10,50 +10,40 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 public class Player {
     private final String name;
     private int lives;
-    private Random rand = new Random();
-    private ArrayList<Card> cards;
+    private final Random rand = new Random();
+    private final ArrayList<Card> cards;
+
+    private final ArrayList<Card> blueCards = new ArrayList<>();     ///these are the cards that the player has laid out in front of him
+
+    private final boolean deathFlag ;
 
 
-    private ArrayList<Card> blueCards = new ArrayList<Card>();     ///these are the cards that the player has laid out in front of him
-
-    public Random getRand() {
-        return rand;
-    }
 
     public Player(String name) {
         this.name = name;
         this.cards = new ArrayList<>();
         this.lives = 4;
+        this.deathFlag = false;
 
     }
-
     public String getName() {
         return name;
     }
-
+    public Random getRand() {
+        return rand;
+    }
     public int getLives() {
         return lives;
     }
-
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
-
     public ArrayList<Card> getPlayerBlueCards() {
         return blueCards;
     }
-
-    public void setBlueCards(ArrayList<Card> blueCards) {
-        this.blueCards = blueCards;
-    }
-
     public boolean isLiving() {
         return this.lives > 0;
     }
 
-    public boolean takeLife() {
+    public void takeLife() {
         this.lives--;
-        return this.lives < 1;
     }
 
     public void addLife() {
@@ -63,22 +53,15 @@ public class Player {
     public ArrayList<Card> getPlayerCards() {
         return this.cards;
     }
-
+    public boolean isDeathFlag() {
+        return deathFlag;
+    }
     public ArrayList<Card> takeFromHand() {
         ArrayList<Card> takenCards = new ArrayList<>(this.cards);
         this.cards.clear();
         return takenCards;
     }
 
-    public ArrayList<Card> getPlayableCards() {
-        ArrayList<Card> cards = new ArrayList<Card>();
-        for (Card card : this.cards) {
-            if (card.isPlayable()) {
-                cards.add(card);
-            }
-        }
-        return cards;
-    }
 
     public void drawCards(ArrayList<Card> deck) {
         drawCards(deck, 2);

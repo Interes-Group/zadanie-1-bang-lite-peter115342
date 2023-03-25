@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.card.blue;
 
 import sk.stuba.fei.uim.oop.card.Card;
-import sk.stuba.fei.uim.oop.card.brown.Stagecoach;
 import sk.stuba.fei.uim.oop.player.Player;
 
 import java.util.ArrayList;
@@ -50,11 +49,44 @@ public class Dynamite extends BlueCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof Dynamite) {
             result = true;
         }
         return result;
+    }
+
+    public void checkDynamiteEffect(Player[] players, int playersCurrent,ArrayList<Card> usedDeck, int numberOfPLayersPLaying) {
+        Card card;
+        int cardInd;
+
+        if (players[playersCurrent].getPlayerBlueCards().contains(new Dynamite())) {
+            cardInd = players[playersCurrent].getPlayerBlueCards().indexOf(new Dynamite());
+            card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
+            if (card.blueCardEffect(players[playersCurrent])) {
+                System.out.println("BOOM!\n" + players[playersCurrent].getName() + " got blown up!");
+                players[playersCurrent].discardCard(usedDeck, players[playersCurrent].getPlayerBlueCards(), cardInd);
+            } else {
+                int passToPrev = 1;
+                while (true) {
+                    if (playersCurrent - passToPrev >= 0 && players[playersCurrent - passToPrev].isLiving()) {
+                        players[playersCurrent - passToPrev].getPlayerBlueCards().add(card);
+                        players[playersCurrent].getPlayerBlueCards().remove(card);
+                        break;
+
+                    }
+                    if (players[numberOfPLayersPLaying - passToPrev].isLiving()) {
+                        players[numberOfPLayersPLaying - passToPrev].getPlayerBlueCards().add(card);
+                        players[playersCurrent].getPlayerBlueCards().remove(card);
+                        break;
+                    }
+                    passToPrev++;
+                }
+
+            }
+
+        }
+
     }
 }

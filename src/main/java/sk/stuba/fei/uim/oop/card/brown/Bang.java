@@ -30,17 +30,16 @@ public class Bang extends BrownCard {
         if (players[currentPlayer].getPlayerBlueCards() == null) {
             shoot(players[currentPlayer]);
         } else {
-            if (players[currentPlayer].getPlayerCards().contains(new Missed())) {
-                System.out.println("!!! " + players[currentPlayer].getName() + " has used the Missed card !!!");
-                players[currentPlayer].discardCard(usedDeck, players[currentPlayer].getPlayerCards(), players[currentPlayer].getPlayerCards().indexOf(new Missed()));
-                //players[currentPlayer].getPlayerCards().remove(new Missed());
-            } else if (players[currentPlayer].getPlayerBlueCards().contains(new Barrel())) {
-
+            if (players[currentPlayer].getPlayerBlueCards().contains( new Barrel())) {
                 if (players[currentPlayer].getPlayerBlueCards().get(players[currentPlayer].getPlayerBlueCards().indexOf(new Barrel())).blueCardEffect(players[currentPlayer])) {
                     System.out.println("!!! " + players[currentPlayer].getName() + " hid behind a barrel! !!!");
                 } else {
                     shoot(players[currentPlayer]);
                 }
+            } else if (players[currentPlayer].getPlayerCards().contains(new Missed())) {
+                System.out.println("!!! " + players[currentPlayer].getName() + " has used the Missed card !!!");
+                players[currentPlayer].discardCard(usedDeck, players[currentPlayer].getPlayerCards(), players[currentPlayer].getPlayerCards().indexOf(new Missed()));
+                //players[currentPlayer].getPlayerCards().remove(new Missed());
             } else {
                 shoot(players[currentPlayer]);
             }
@@ -62,7 +61,7 @@ public class Bang extends BrownCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof Bang) {
             result = true;

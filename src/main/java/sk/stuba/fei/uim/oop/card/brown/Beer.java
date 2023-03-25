@@ -40,7 +40,7 @@ public class Beer extends BrownCard {
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
-            return result;
+            return false;
 
         } else if (object instanceof Beer) {
             result = true;
