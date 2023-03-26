@@ -10,20 +10,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class BangFlow {
+    private static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";// YELLOW
     private final Player[] players;
     private int playersCurrent;
     private int numberOfPlayers;
     private final ArrayList<Card> cardDeck;
     private final ArrayList<Card> usedDeck = new ArrayList<>();
-
-
-    public ArrayList<Card> getCardDeck() {
-        return cardDeck;
-    }
-
-    public ArrayList<Card> getUsedDeck() {
-        return usedDeck;
-    }
 
     public BangFlow() {
         printBang();
@@ -51,17 +43,15 @@ public class BangFlow {
 
         Collections.shuffle(cardDeck);
 
-        for (int i = 0; i < getNumberOfPlayersPlaying(); i++) {
-            players[i].drawCards(this.cardDeck, 4);
+        drawStartCards();
 
-        }
         while (getNumberOfPlayersPlaying() > 1) {
 
             checkAlivePlayers();
             this.playerCounterReset();
-            while (playersCurrent < numberOfPlayers-1) {
-                if (checkWin()){
-                    break;
+            while (playersCurrent < numberOfPlayers - 1) {
+                if (checkWin()) {
+                    return;
                 }
                 this.playerCounterPlus();
 
@@ -84,19 +74,18 @@ public class BangFlow {
                         }
                         System.out.println("Cards in deck: " + (cardDeck.size()));
                         System.out.println("Cards in used deck: " + (usedDeck.size()));
-
                         players[playersCurrent].printPlayerCards();
-                        if (checkWin()){
-                            break;
+                        if (checkWin()) {
+                            return;
                         }
 
-                    } while (playTurn( playersCurrent,numberOfPlayers ));
+                    } while (playTurn(playersCurrent, numberOfPlayers));
                     while (players[playersCurrent].getNumberCards() > players[playersCurrent].getLives() - 1) {
                         players[playersCurrent].discardRandomCard(usedDeck, players[playersCurrent].getPlayerCards());
                     }
                 }
-                if (checkWin()){
-                    break;
+                if (checkWin()) {
+                    return;
                 }
             }
 
@@ -122,7 +111,7 @@ public class BangFlow {
         this.playersCurrent = -1;
     }
 
-    private boolean playTurn( int playersCurrent, int numOfPlayers) {
+    private boolean playTurn(int playersCurrent, int numOfPlayers) {
         Card card;
         int playerIndex;
 
@@ -134,10 +123,9 @@ public class BangFlow {
         if (card.canUseOnEnemy() && !(card instanceof Indians)) {
             while (true) {
                 playerIndex = (ZKlavesnice.readInt("Choose who to use this card on: Or Enter 0 if you want to play a different card.") - 1);
-                if(playerIndex == -1){
+                if (playerIndex == -1) {
                     return true;
-                }
-                else if (playerIndex == playersCurrent) {
+                } else if (playerIndex == playersCurrent) {
                     System.out.println("You cannot use this card on yourself!");
                 } else if (playerIndex > numOfPlayers - 1 || playerIndex < 0) {
                     System.out.println("Choose from the players that are currently playing!");
@@ -145,22 +133,20 @@ public class BangFlow {
                     System.out.println("This player is dead!");
                 } else if (players[playerIndex].getPlayerBlueCards().contains(card)) {
                     System.out.println("You can only lay out one card of the same type!");
-                } else if( card instanceof CatBalou) {
+                } else if (card instanceof CatBalou) {
                     if (players[playerIndex].getPlayerCards().isEmpty() && players[playerIndex].getPlayerBlueCards().isEmpty()) {
                         System.out.println("You cannot use " + card.getName() + " on " + players[playerIndex].getName() + " as he has no cards at all!");
-                    }
-                    else {
+                    } else {
                         break;
                     }
-                }
-                else {
+                } else {
                     break;
                 }
             }
 
             System.out.println("''' Player " + players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
             card.playCard(players, cardDeck, usedDeck, playerIndex);
-
+            players[playerIndex].kill();
             players[playersCurrent].getPlayerCards().remove(card);
         } else {
             if (players[playersCurrent].getPlayerBlueCards().contains(card)) {
@@ -169,10 +155,11 @@ public class BangFlow {
             }
             System.out.println("''' Player " + players[playersCurrent].getName() + " has chosen to play: " + card.getName() + "! '''");
             card.playCard(players, cardDeck, usedDeck, playersCurrent);
-
             players[playersCurrent].getPlayerCards().remove(card);
 
         }
+
+
         if (card.getCardColor() != CardColor.BLUE) {
             usedDeck.add(card);
         }
@@ -185,11 +172,10 @@ public class BangFlow {
     private boolean checkAlivePlayers() {
         int count = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
-            if (players[i].isDeathFlag()) {
+            if (players[i].getDeathFlag()) {
                 if (!players[i].isLiving()) {
                     this.usedDeck.addAll(players[i].takeFromHand());
                     players[i].kill();
-                    System.out.println("!!!   " + players[i].getName() + " is  dead! !!! ");
                     count++;
                 }
             }
@@ -204,18 +190,19 @@ public class BangFlow {
     }
 
     private boolean checkWin() {
-        if (!checkAlivePlayers()){
-            for (int i = 0; i < numberOfPlayers;i++){
-                if (players[i].isLiving()){
-                    System.out.println("Congrats! 1"+ players[i].getName()+" won the game!");
+        if (!checkAlivePlayers()) {
+            for (Player player : players) {
+                if (player.isLiving()) {
+                    System.out.println("Congrats! " + player.getName() + " won the game!");
                 }
             }
             return true;
         }
         return false;
     }
-    private void printBang(){
-        System.out.println("\n" +
+
+    private void printBang() {
+        System.out.println(YELLOW_BOLD_BRIGHT + "\n" +
                 " ▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄ \n" +
                 "▐░░░░░░░░░░▌ ▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░▌\n" +
                 "▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░▌░▌     ▐░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░▌\n" +
@@ -229,7 +216,8 @@ public class BangFlow {
                 " ▀▀▀▀▀▀▀▀▀▀   ▀         ▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀ \n");
         System.out.println("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n");
     }
-    private void genCards(){
+
+    private void genCards() {
         for (int i = 0; i < 2; i++) {
             cardDeck.add(new Barrel());
         }
@@ -256,6 +244,12 @@ public class BangFlow {
         }
         for (int i = 0; i < 2; i++) {
             cardDeck.add(new Indians());
+        }
+    }
+
+    private void drawStartCards() {
+        for (Player player : players) {
+            player.drawCards(this.cardDeck, 4);
         }
     }
 }

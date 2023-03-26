@@ -41,7 +41,6 @@ public class Player {
     public boolean isLiving() {
         return this.lives > 0;
     }
-
     public void takeLife() {
         this.lives--;
     }
@@ -53,11 +52,13 @@ public class Player {
     public ArrayList<Card> getPlayerCards() {
         return this.cards;
     }
-    public boolean isDeathFlag() {
+    public boolean getDeathFlag() {
         return !deathFlag;
     }
     public void kill(){
-        this.deathFlag = true;
+        if(!this.isLiving()  && (!this.getDeathFlag())) {
+            System.out.println("!!!   " + this.getName() + " is  dead! !!! ");
+            this.deathFlag = true;}
     }
     public ArrayList<Card> takeFromHand() {
         ArrayList<Card> takenCards = new ArrayList<>();
@@ -92,18 +93,18 @@ public class Player {
         return (this.cards.size() - 1);
     }
 
-    public void discardRandomCard(ArrayList<Card> usedDeck, ArrayList<Card> playerCard) {
-        if (!playerCard.isEmpty() && playerCard.size() > 1) {
-            int randCardInd = this.rand.nextInt(playerCard.size() - 1);
-            Card card = playerCard.get(randCardInd);
+    public void discardRandomCard(ArrayList<Card> usedDeck, ArrayList<Card> playerCards) {
+        if (!playerCards.isEmpty() && playerCards.size() > 1) {
+            int randCardInd = this.rand.nextInt(playerCards.size() - 1);
+            Card card = playerCards.get(randCardInd);
             System.out.println(card.getName() + " has been discarded from " + this.getName() + "'s cards!");
-            playerCard.remove(randCardInd);
+            playerCards.remove(randCardInd);
             usedDeck.add(card);
         }
-        if(playerCard.size() == 1){
-            Card card = playerCard.get(0);
+        if(playerCards.size() == 1){
+            Card card = playerCards.get(0);
             System.out.println(card.getName() + " has been discarded from " + this.getName() + "'s cards!");
-            playerCard.remove(0);
+            playerCards.remove(0);
             usedDeck.add(card);
         }
     }

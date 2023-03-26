@@ -66,6 +66,7 @@ public class Dynamite extends BlueCard {
             card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
             if (card.blueCardEffect(players[playersCurrent])) {
                 System.out.println("BOOM!\n" + players[playersCurrent].getName() + " got blown up!");
+                players[playersCurrent].kill();
                 players[playersCurrent].discardCard(usedDeck, players[playersCurrent].getPlayerBlueCards(), cardInd);
             } else {
                 int passToPrev = 1;
