@@ -71,12 +71,14 @@ public class Dynamite extends BlueCard {
                 int passToPrev = 1;
                 while (true) {
                     if (playersCurrent - passToPrev >= 0 && players[playersCurrent - passToPrev].isLiving()) {
+                        System.out.println( players[playersCurrent].getName() + " passed on the dynamite!");
                         players[playersCurrent - passToPrev].getPlayerBlueCards().add(card);
                         players[playersCurrent].getPlayerBlueCards().remove(card);
                         break;
 
                     }
                     if (players[numberOfPLayersPLaying - passToPrev].isLiving()) {
+                        System.out.println( players[playersCurrent].getName() + " passed on the dynamite!");
                         players[numberOfPLayersPLaying - passToPrev].getPlayerBlueCards().add(card);
                         players[playersCurrent].getPlayerBlueCards().remove(card);
                         break;

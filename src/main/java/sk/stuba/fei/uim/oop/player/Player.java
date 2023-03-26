@@ -15,7 +15,7 @@ public class Player {
 
     private final ArrayList<Card> blueCards = new ArrayList<>();     ///these are the cards that the player has laid out in front of him
 
-    private final boolean deathFlag ;
+    private  boolean deathFlag ;
 
 
 
@@ -54,11 +54,17 @@ public class Player {
         return this.cards;
     }
     public boolean isDeathFlag() {
-        return deathFlag;
+        return !deathFlag;
+    }
+    public void kill(){
+        this.deathFlag = true;
     }
     public ArrayList<Card> takeFromHand() {
-        ArrayList<Card> takenCards = new ArrayList<>(this.cards);
+        ArrayList<Card> takenCards = new ArrayList<>();
+        takenCards.addAll(this.cards);
+        takenCards.addAll(this.blueCards);
         this.cards.clear();
+        this.blueCards.clear();
         return takenCards;
     }
 
@@ -87,11 +93,17 @@ public class Player {
     }
 
     public void discardRandomCard(ArrayList<Card> usedDeck, ArrayList<Card> playerCard) {
-        if (!playerCard.isEmpty()) {
+        if (!playerCard.isEmpty() && playerCard.size() > 1) {
             int randCardInd = this.rand.nextInt(playerCard.size() - 1);
             Card card = playerCard.get(randCardInd);
             System.out.println(card.getName() + " has been discarded from " + this.getName() + "'s cards!");
             playerCard.remove(randCardInd);
+            usedDeck.add(card);
+        }
+        if(playerCard.size() == 1){
+            Card card = playerCard.get(0);
+            System.out.println(card.getName() + " has been discarded from " + this.getName() + "'s cards!");
+            playerCard.remove(0);
             usedDeck.add(card);
         }
     }
