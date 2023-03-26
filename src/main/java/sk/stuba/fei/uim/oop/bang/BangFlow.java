@@ -172,7 +172,7 @@ public class BangFlow {
     private boolean checkAlivePlayers() {
         int count = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
-            if (!players[i].getDeathFlag()) {
+            if (players[i].getDeathFlag()) {
                 if (!players[i].isLiving()) {
                     this.usedDeck.addAll(players[i].takeFromHand());
                     players[i].kill();

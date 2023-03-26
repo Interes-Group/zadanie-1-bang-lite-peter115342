@@ -53,7 +53,7 @@ public class Player {
         return this.cards;
     }
     public boolean getDeathFlag() {
-        return !deathFlag;
+        return deathFlag;
     }
     public void kill(){
         if(!this.isLiving()) {
