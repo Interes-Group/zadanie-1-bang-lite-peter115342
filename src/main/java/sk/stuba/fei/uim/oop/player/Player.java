@@ -57,7 +57,9 @@ public class Player {
     }
     public void kill(){
         if(!this.isLiving()) {
-            System.out.println("!!!   " + this.getName() + " is  dead! !!! ");
+            if (this.getDeathFlag()) {
+                System.out.println("!!!   " + this.getName() + " is  dead! !!! ");
+            }
             this.deathFlag = true;}
     }
     public ArrayList<Card> takeFromHand() {
