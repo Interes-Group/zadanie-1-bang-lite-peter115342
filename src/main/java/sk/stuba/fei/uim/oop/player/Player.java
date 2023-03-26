@@ -56,7 +56,7 @@ public class Player {
         return !deathFlag;
     }
     public void kill(){
-        if(!this.isLiving()  && (!this.getDeathFlag())) {
+        if(!this.isLiving()) {
             System.out.println("!!!   " + this.getName() + " is  dead! !!! ");
             this.deathFlag = true;}
     }

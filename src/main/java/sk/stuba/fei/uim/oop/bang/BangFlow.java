@@ -57,7 +57,7 @@ public class BangFlow {
 
                 if (players[playersCurrent].isLiving()) {
                     System.out.println("''' It is " + players[playersCurrent].getName() + "'s turn. '''");
-                    new Dynamite().checkDynamiteEffect(players, playersCurrent, usedDeck, getNumberOfPlayersPlaying());
+                    new Dynamite().checkDynamiteEffect(players, playersCurrent, usedDeck, numberOfPlayers);
                     if (new Prison().checkPrisonEffect(players, playersCurrent, usedDeck)) {
                         continue;
                     }
@@ -180,7 +180,7 @@ public class BangFlow {
                 }
             }
         }
-        return count < getNumberOfPlayersPlaying();
+        return count < numberOfPlayers;
     }
 
     private void moveDeck() {

@@ -57,31 +57,31 @@ public class Dynamite extends BlueCard {
         return result;
     }
 
-    public void checkDynamiteEffect(Player[] players, int playersCurrent,ArrayList<Card> usedDeck, int numberOfPLayersPLaying) {
+    public void checkDynamiteEffect(Player[] players, int playerCurrent,ArrayList<Card> usedDeck, int numberOfPLayersPLaying) {
         Card card;
         int cardInd;
 
-        if (players[playersCurrent].getPlayerBlueCards().contains(new Dynamite())) {
-            cardInd = players[playersCurrent].getPlayerBlueCards().indexOf(new Dynamite());
-            card = players[playersCurrent].getPlayerBlueCards().get(cardInd);
-            if (card.blueCardEffect(players[playersCurrent])) {
-                System.out.println("BOOM!\n" + players[playersCurrent].getName() + " got blown up!");
-                players[playersCurrent].kill();
-                players[playersCurrent].discardCard(usedDeck, players[playersCurrent].getPlayerBlueCards(), cardInd);
+        if (players[playerCurrent].getPlayerBlueCards().contains(new Dynamite())) {
+            cardInd = players[playerCurrent].getPlayerBlueCards().indexOf(new Dynamite());
+            card = players[playerCurrent].getPlayerBlueCards().get(cardInd);
+            if (card.blueCardEffect(players[playerCurrent])) {
+                System.out.println("BOOM!\n" + players[playerCurrent].getName() + " got blown up!");
+                players[playerCurrent].kill();
+                players[playerCurrent].discardCard(usedDeck, players[playerCurrent].getPlayerBlueCards(), cardInd);
             } else {
                 int passToPrev = 1;
                 while (true) {
-                    if (playersCurrent - passToPrev >= 0 && players[playersCurrent - passToPrev].isLiving()) {
-                        System.out.println( players[playersCurrent].getName() + " passed on the dynamite!");
-                        players[playersCurrent - passToPrev].getPlayerBlueCards().add(card);
-                        players[playersCurrent].getPlayerBlueCards().remove(card);
+                    if (playerCurrent - passToPrev >= 0 && players[playerCurrent - passToPrev].isLiving()) {
+                        System.out.println( players[playerCurrent].getName() + " passed on the dynamite!");
+                        players[playerCurrent - passToPrev].getPlayerBlueCards().add(card);
+                        players[playerCurrent].getPlayerBlueCards().remove(card);
                         break;
 
                     }
                     if (players[numberOfPLayersPLaying - passToPrev].isLiving()) {
-                        System.out.println( players[playersCurrent].getName() + " passed on the dynamite!");
+                        System.out.println( players[playerCurrent].getName() + " passed on the dynamite!");
                         players[numberOfPLayersPLaying - passToPrev].getPlayerBlueCards().add(card);
-                        players[playersCurrent].getPlayerBlueCards().remove(card);
+                        players[playerCurrent].getPlayerBlueCards().remove(card);
                         break;
                     }
                     passToPrev++;
