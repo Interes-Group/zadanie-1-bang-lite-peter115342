@@ -30,7 +30,7 @@ public class Bang extends BrownCard {
         if (players[currentPlayer].getPlayerBlueCards() == null) {
             shoot(players[currentPlayer]);
         } else {
-            if (players[currentPlayer].getPlayerBlueCards().contains( new Barrel())) {
+            if (players[currentPlayer].getPlayerBlueCards().contains(new Barrel())) {
                 if (players[currentPlayer].getPlayerBlueCards().get(players[currentPlayer].getPlayerBlueCards().indexOf(new Barrel())).blueCardEffect(players[currentPlayer])) {
                     System.out.println("!!! " + players[currentPlayer].getName() + " hid behind a barrel! !!!");
                 } else {
@@ -39,11 +39,15 @@ public class Bang extends BrownCard {
             } else if (players[currentPlayer].getPlayerCards().contains(new Missed())) {
                 System.out.println("!!! " + players[currentPlayer].getName() + " has used the Missed card !!!");
                 players[currentPlayer].discardCard(usedDeck, players[currentPlayer].getPlayerCards(), players[currentPlayer].getPlayerCards().indexOf(new Missed()));
-                //players[currentPlayer].getPlayerCards().remove(new Missed());
             } else {
                 shoot(players[currentPlayer]);
             }
         }
+    }
+
+    private void shoot(Player player) {
+        player.takeLife();
+        System.out.println("!!! " + player.getName() + " got shot! !!!");
     }
 
     @Override
@@ -51,10 +55,6 @@ public class Bang extends BrownCard {
         return true;
     }
 
-    public void shoot(Player player) {
-        player.takeLife();
-        System.out.println("!!! " + player.getName() + " got shot! !!!");
-    }
 
     @Override
     // override to the equals() function, so I can search for objects as a whole instead of a reference

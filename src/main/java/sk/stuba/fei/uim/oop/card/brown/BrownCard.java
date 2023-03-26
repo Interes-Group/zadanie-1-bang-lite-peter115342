@@ -1,4 +1,5 @@
 package sk.stuba.fei.uim.oop.card.brown;
+
 import sk.stuba.fei.uim.oop.card.*;
 
 public abstract class BrownCard extends Card {
@@ -6,7 +7,6 @@ public abstract class BrownCard extends Card {
         super(name);
         super.cardColor = CardColor.BROWN;
     }
-
 
 
 }

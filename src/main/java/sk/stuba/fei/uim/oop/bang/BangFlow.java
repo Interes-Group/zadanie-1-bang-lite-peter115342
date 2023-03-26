@@ -63,8 +63,8 @@ public class BangFlow {
                     }
                     players[playersCurrent].drawCards(cardDeck);
 
-                    if (!checkAlivePlayers()) {
-                        break;
+                    if (checkWin()) {
+                        return;
                     }
 
                     do {
@@ -172,15 +172,16 @@ public class BangFlow {
     private boolean checkAlivePlayers() {
         int count = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
-            if (players[i].getDeathFlag()) {
+            if (!players[i].getDeathFlag()) {
                 if (!players[i].isLiving()) {
                     this.usedDeck.addAll(players[i].takeFromHand());
                     players[i].kill();
                     count++;
                 }
+
             }
         }
-        return count < numberOfPlayers;
+        return count == numberOfPlayers-1;
     }
 
     private void moveDeck() {
@@ -190,7 +191,7 @@ public class BangFlow {
     }
 
     private boolean checkWin() {
-        if (!checkAlivePlayers()) {
+        if (checkAlivePlayers()) {
             for (Player player : players) {
                 if (player.isLiving()) {
                     System.out.println("Congrats! " + player.getName() + " won the game!");

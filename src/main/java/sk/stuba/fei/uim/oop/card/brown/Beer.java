@@ -36,7 +36,6 @@ public class Beer extends BrownCard {
     }
 
     @Override
-    // override to the equals() function, so I can search for objects as a whole instead of a reference
     public boolean equals(Object object) {
         boolean result = false;
         if (object == null) {
